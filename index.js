@@ -10,3 +10,17 @@ class Person {
     return this._type;
   }
 }
+
+class Inventory {
+  constructor() {
+    this.items = [];
+  }
+
+  add(item) {
+    this.items.push(item);
+  }
+
+  list() {
+    return this.items.forEach(i => console.log(i.name))
+  }
+}
