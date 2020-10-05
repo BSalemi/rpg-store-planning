@@ -42,6 +42,29 @@ class User extends Person {
   }
 }
 
+class Item {
+  constructor(name, price, type, imageUrl) {
+    this.name = name;
+    this._type = type;
+    this.imageUrl = imageUrl;
+    this.price = price;
+    this.buffs = []; // ??
+    this.debuffs = []; // ??
+  }
+
+  get type() {
+    return this._type;
+  }
+
+  get itemType() {
+    return this.constructor.name;
+  }
+
+  get sellPrice() {
+    return this.price / 2;
+  }
+}
+
 const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
 const u = new User('jess', 'jess@gmail.com', '1234')
 console.log(shopkeeper, u)
