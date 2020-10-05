@@ -25,6 +25,16 @@ class Inventory {
   }
 }
 
+class Cart extends Inventory {
+  constructor() {
+    super();
+  }
+
+  get total() {
+    return this.items.reduce((a, c) => ({ price: a.price + c.price })).price
+  }
+}
+
 class User extends Person {
   constructor(username, email, password, classType, gold = 500, type = 'user') {
     super(username, gold, type)
