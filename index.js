@@ -175,3 +175,11 @@ u.equip(woodenBow)
 u.equip(healingHerb)
 console.log('\n' + '====== Equipped ======')
 console.log(u.equipped.list())
+
+const cart = new Cart();
+cart.add(thievesDagger);
+cart.add(thievesDagger);
+cart.add(claymore)
+cart.add(woodenBow)
+console.log('====== Cart Items ======')
+console.log(cart.list())
