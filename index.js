@@ -24,6 +24,27 @@ class Inventory {
     return this.items.forEach(i => console.log(i.name))
   }
 
+  findByItemType(itemType) {
+    // itemType refers to the item's constructor: Weapon, Armor, etc
+    return this.items.find(i => i.itemType === itemType)
+  }
+
+  findByLocation(location) {
+    // location on the body - this is for armor
+    return this.items.find(i => i.location === location);
+  }
+
+  findByName(name) {
+    return this.items.find(i => i.name === name);
+  }
+
+  weapons() {
+    return this.items.filter(i => i.constructor.name === 'Weapon');
+  }
+
+  armor() {
+    return this.items.filter(i => i.constructor.name === 'Armor');
+  }
 }
 
 class Cart extends Inventory {
