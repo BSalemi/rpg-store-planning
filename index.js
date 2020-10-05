@@ -24,3 +24,24 @@ class Inventory {
     return this.items.forEach(i => console.log(i.name))
   }
 }
+
+class User extends Person {
+  constructor(username, email, password, classType, gold = 500, type = 'user') {
+    super(username, gold, type)
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.classType = classType;
+    this.equipped = new Inventory();
+
+    this.strength = 0;
+    this.defense = 0;
+    this.luck = 0;
+    this.magic = 0;
+
+  }
+}
+
+const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
+const u = new User('jess', 'jess@gmail.com', '1234')
+console.log(shopkeeper, u)
