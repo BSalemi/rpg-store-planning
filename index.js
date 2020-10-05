@@ -23,6 +23,7 @@ class Inventory {
   list() {
     return this.items.forEach(i => console.log(i.name))
   }
+
 }
 
 class Cart extends Inventory {
@@ -53,6 +54,8 @@ class User extends Person {
 }
 
 class Item {
+  static all = [];
+
   constructor(name, price, type, imageUrl) {
     this.name = name;
     this._type = type;
@@ -60,6 +63,8 @@ class Item {
     this.price = price;
     this.buffs = []; // ??
     this.debuffs = []; // ??
+
+    Item.all.push(this);
   }
 
   get type() {
@@ -90,4 +95,12 @@ class Armor extends Item {
 
 const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
 const u = new User('jess', 'jess@gmail.com', '1234')
-console.log(shopkeeper, u)
+const longsword = new Weapon('Longsword', 500, 'sword');
+const claymore = new Weapon('Claymore', 725, 'sword');
+const thievesDagger = new Weapon("Thieve's Dagger", 75, 'dagger');
+const woodenBow = new Weapon('Wooden Bow', 220, 'bow');
+const greatHelm = new Armor('Great Helm', 225, 'head', 'helmet')
+const woodenShield = new Armor('Wooden Shield', 100, 'hand', 'shield');
+const healingHerb = new Item('Healing Herb', 25, 'herb');
+
+console.log(Item.all)
