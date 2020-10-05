@@ -72,6 +72,44 @@ class User extends Person {
     this.magic = 0;
 
   }
+
+  equip(item) {
+    if (this.inventory.findByName(item.name)) {
+      let foundEquippedItem;
+
+      switch (item.itemType) {
+        case 'Armor':
+          foundEquippedItem = this.equipped.findByLocation(item.location);
+          break;
+        case 'Weapon':
+          foundEquippedItem = this.equipped.findByItemType(item.itemType);
+          break;
+        default:
+          console.log(`You can't equip ${item.name}.`)
+          return
+      }
+
+      if (!foundEquippedItem) {
+        this.equipped.add(item);
+        console.log(`${item.name} equipped.`);
+
+      } else if (foundEquippedItem.name === item.name) {
+        console.log(`${item.name} is already equipped.`)
+      } else if (foundEquippedItem.name !== item.name) {
+        console.log(`You can't equip ${item.name} while ${foundEquippedItem.name} is equipped.`)
+      }
+
+    } else {
+      switch (item.itemType) {
+        case 'Armor':
+        case 'Weapon':
+          console.log(`You don't own ${item.name}.`);
+          break;
+        default:
+          console.log(`You can't equip ${item.name}.`);
+      }
+    }
+  }
 }
 
 class Item {
@@ -116,6 +154,7 @@ class Armor extends Item {
 
 const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
 const u = new User('jess', 'jess@gmail.com', '1234')
+
 const longsword = new Weapon('Longsword', 500, 'sword');
 const claymore = new Weapon('Claymore', 725, 'sword');
 const thievesDagger = new Weapon("Thieve's Dagger", 75, 'dagger');
@@ -124,4 +163,15 @@ const greatHelm = new Armor('Great Helm', 225, 'head', 'helmet')
 const woodenShield = new Armor('Wooden Shield', 100, 'hand', 'shield');
 const healingHerb = new Item('Healing Herb', 25, 'herb');
 
-console.log(Item.all)
+u.inventory.add(longsword);
+u.inventory.add(woodenShield);
+u.inventory.add(thievesDagger);
+u.equip(longsword);
+u.equip(longsword);
+u.equip(woodenShield)
+u.equip(greatHelm)
+u.equip(woodenShield)
+u.equip(woodenBow)
+u.equip(healingHerb)
+console.log('\n' + '====== Equipped ======')
+console.log(u.equipped.list())
