@@ -75,6 +75,19 @@ class Item {
   }
 }
 
+class Weapon extends Item {
+  constructor(name, price, type, imageUrl) {
+    super(name, price, type, imageUrl);
+  }
+}
+
+class Armor extends Item {
+  constructor(name, price, location, type, imageUrl) {
+    super(name, price, type, imageUrl);
+    this.location = location; // on the user's body
+  }
+}
+
 const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
 const u = new User('jess', 'jess@gmail.com', '1234')
 console.log(shopkeeper, u)
