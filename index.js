@@ -12,6 +12,7 @@ class Person {
 }
 
 class Inventory {
+
   constructor() {
     this.items = [];
   }
@@ -113,7 +114,8 @@ class User extends Person {
 }
 
 class Item {
-  static all = [];
+
+  static world = new Inventory();
 
   constructor(name, price, type, imageUrl) {
     this.name = name;
@@ -123,7 +125,7 @@ class Item {
     this.buffs = []; // ??
     this.debuffs = []; // ??
 
-    Item.all.push(this);
+    Item.world.items.push(this)
   }
 
   get type() {
@@ -163,6 +165,7 @@ const greatHelm = new Armor('Great Helm', 225, 'head', 'helmet')
 const woodenShield = new Armor('Wooden Shield', 100, 'hand', 'shield');
 const healingHerb = new Item('Healing Herb', 25, 'herb');
 
+
 u.inventory.add(longsword);
 u.inventory.add(woodenShield);
 u.inventory.add(thievesDagger);
@@ -183,3 +186,6 @@ cart.add(claymore)
 cart.add(woodenBow)
 console.log('====== Cart Items ======')
 console.log(cart.list())
+
+console.log('====== All Items in World ======')
+console.log(Item.world.list())
