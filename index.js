@@ -66,11 +66,16 @@ class User extends Person {
     this.password = password;
     this.classType = classType;
     this.equipped = new Inventory();
+    this.stats = {
+      health: 0,
+      strength: 0,
+      defense: 0,
+      elemAtk: 0,
+      elemDef: 0,
+      luck: 0
+    }
 
-    this.strength = 0;
-    this.defense = 0;
-    this.luck = 0;
-    this.magic = 0;
+    
 
   }
 
@@ -93,7 +98,9 @@ class User extends Person {
       if (!foundEquippedItem) {
         this.equipped.add(item);
         console.log(`${item.name} equipped.`);
-
+        if(Object.keys(item.effects).length > 0){
+          this.updateStats(item.effects)
+        }
       } else if (foundEquippedItem.name === item.name) {
         console.log(`${item.name} is already equipped.`)
       } else if (foundEquippedItem.name !== item.name) {
@@ -111,6 +118,15 @@ class User extends Person {
       }
     }
   }
+
+  updateStats(effects){
+    for(let stat in effects){
+      let attr = stat
+      if(effects[stat] !== 0){
+        this.stats[attr] = this.stats[attr] + effects[stat]
+      } 
+    }
+  }
 }
 
 class Item {
@@ -122,8 +138,7 @@ class Item {
     this._type = type;
     this.imageUrl = imageUrl;
     this.price = price;
-    this.buffs = []; // ??
-    this.debuffs = []; // ??
+    this.effects = {}
 
     Item.world.items.push(this)
   }
@@ -154,6 +169,8 @@ class Armor extends Item {
   }
 }
 
+ 
+
 const shopkeeper = new Person('shopkeeper', 5000, 'shopkeeper');
 const u = new User('jess', 'jess@gmail.com', '1234')
 
@@ -164,18 +181,39 @@ const woodenBow = new Weapon('Wooden Bow', 220, 'bow');
 const greatHelm = new Armor('Great Helm', 225, 'head', 'helmet')
 const woodenShield = new Armor('Wooden Shield', 100, 'hand', 'shield');
 const healingHerb = new Item('Healing Herb', 25, 'herb');
+const quartzStaff = new Weapon('Quartz Staff', 650, 'staff')
+
+quartzStaff.effects = {
+  health: 0,
+  strength: 0,
+  defense: 0,
+  elemAtk: 225,
+  elemDef: 0,
+  luck: 75
+}
+
+woodenShield.effects = {
+  health: 0,
+  strength: 0,
+  defense: 40,
+  elemAtk: 0,
+  elemDef: 0,
+  luck: 0
+}
 
 
 u.inventory.add(longsword);
 u.inventory.add(woodenShield);
 u.inventory.add(thievesDagger);
-u.equip(longsword);
-u.equip(longsword);
+u.inventory.add(quartzStaff)
+// u.equip(longsword);
+// u.equip(longsword);
 u.equip(woodenShield)
 u.equip(greatHelm)
 u.equip(woodenShield)
 u.equip(woodenBow)
 u.equip(healingHerb)
+u.equip(quartzStaff)
 console.log('\n' + '====== Equipped ======')
 console.log(u.equipped.list())
 
@@ -189,3 +227,7 @@ console.log(cart.list())
 
 console.log('====== All Items in World ======')
 console.log(Item.world.list())
+
+console.log('====== Character Stats ======')
+console.log(u.username)
+console.log(u.stats)
